@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'authentication',
     'event',
     'content',
+    'benefits', 
     'rest_framework',
     'corsheaders'
 ]

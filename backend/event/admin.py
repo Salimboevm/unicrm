@@ -2,9 +2,7 @@
 
 from django.contrib import admin
 from django.utils import timezone
-from .models import (
-    Event, Attendance, Benefit, BenefitUsage
-)
+from .models import Event, Attendance
 
 class AttendanceInline(admin.TabularInline):
     model = Attendance
@@ -61,25 +59,3 @@ class AttendanceAdmin(admin.ModelAdmin):
     
     mark_as_attended.short_description = "Mark selected attendees as attended"
     mark_as_checked_in.short_description = "Mark selected attendees as checked in"
-
-class BenefitUsageInline(admin.TabularInline):
-    model = BenefitUsage
-    extra = 0
-    readonly_fields = ('used_at',)
-    raw_id_fields = ['user']
-
-@admin.register(Benefit)
-class BenefitAdmin(admin.ModelAdmin):
-    list_display = ('name', 'membership_level_required', 'is_active')
-    list_filter = ('membership_level_required', 'is_active')
-    search_fields = ('name', 'description')
-    inlines = [BenefitUsageInline]
-
-@admin.register(BenefitUsage)
-class BenefitUsageAdmin(admin.ModelAdmin):
-    list_display = ('user', 'benefit', 'used_at', 'usage_count')
-    list_filter = ('benefit__membership_level_required',)
-    search_fields = ('user__email', 'user__username', 'benefit__name', 'notes')
-    date_hierarchy = 'used_at'
-    raw_id_fields = ['user', 'benefit']
-    list_select_related = ['user', 'benefit']

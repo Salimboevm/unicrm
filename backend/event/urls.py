@@ -4,16 +4,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     EventViewSet, AttendanceViewSet, 
-    MemberJourneyAPIView, MemberActivityAPIView,
-    BenefitViewSet, BenefitUsageViewSet
+    MemberJourneyAPIView, MemberActivityAPIView
 )
 
 # Create a router and register our viewsets with it
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
 router.register(r'attendances', AttendanceViewSet)
-router.register(r'benefits', BenefitViewSet, basename='benefits')
-router.register(r'benefit-usage', BenefitUsageViewSet, basename='benefit-usage')
 
 # The API URLs are determined automatically by the router
 urlpatterns = [
@@ -36,5 +33,4 @@ urlpatterns = [
     
     # Member-specific endpoints
     path('my/events/', AttendanceViewSet.as_view({'get': 'my_events'}), name='my-events'),
-    path('my/benefits/', BenefitUsageViewSet.as_view({'get': 'my_benefits'}), name='my-benefits'),
 ]
