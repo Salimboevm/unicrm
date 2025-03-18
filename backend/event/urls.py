@@ -5,7 +5,6 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     EventViewSet, AttendanceViewSet, 
     MemberJourneyAPIView, MemberActivityAPIView,
-    DigitalContentViewSet, ContentProgressViewSet,
     BenefitViewSet, BenefitUsageViewSet
 )
 
@@ -13,8 +12,6 @@ from .views import (
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
 router.register(r'attendances', AttendanceViewSet)
-router.register(r'content', DigitalContentViewSet, basename='digital-content')
-router.register(r'content-progress', ContentProgressViewSet, basename='content-progress')
 router.register(r'benefits', BenefitViewSet, basename='benefits')
 router.register(r'benefit-usage', BenefitUsageViewSet, basename='benefit-usage')
 
@@ -39,6 +36,5 @@ urlpatterns = [
     
     # Member-specific endpoints
     path('my/events/', AttendanceViewSet.as_view({'get': 'my_events'}), name='my-events'),
-    path('my/content/', ContentProgressViewSet.as_view({'get': 'my_progress'}), name='my-content-progress'),
     path('my/benefits/', BenefitUsageViewSet.as_view({'get': 'my_benefits'}), name='my-benefits'),
 ]
